@@ -1,6 +1,6 @@
 #include<iostream>
 
-//include glad before GLFW to avoid header conflict or define "#define GLFW_INCLUDE_NONE"
+// Include glad before GLFW to avoid header conflict or define "#define GLFW_INCLUDE_NONE"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -43,7 +43,7 @@ void APIENTRY glDebugOutput(GLenum source,
 	const char* message,
 	const void* userParam)
 {
-	// ignore non-significant error/warning codes
+	// Ignore non-significant error/warning codes
 	if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
 
 	std::cout << "---------------" << std::endl;
@@ -107,8 +107,8 @@ int main(int argc, char* argv[])
 	std::cout << "Depths of Hoenn - Loading..." << std::endl;
 
 
-	//Boilerplate
-	//Create the OpenGL context 
+	// Boilerplate
+	// Create the OpenGL context 
 	if (!glfwInit()) {
 		throw std::runtime_error("Failed to initialise GLFW \n");
 	}
@@ -117,12 +117,12 @@ int main(int argc, char* argv[])
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifndef NDEBUG
-	//create a debug context to help with Debugging
+	// Create a debug context to help with Debugging
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 #endif
 
 
-	//Create the window
+	// Create the window
 	GLFWwindow* window = glfwCreateWindow(width, height, "Depths of Hoenn", nullptr, nullptr);
 	if (window == NULL)
 	{
@@ -190,12 +190,12 @@ int main(int argc, char* argv[])
 		"void main() { \n"
 		"vec3 baseColor = useTexture ? texture(texture1, v_tex_coord).rgb : objectColor;\n"
 		"vec3 N = normalize(v_normal);\n"
-		// Toon — quantize diffuse from light 3 (main scene light)
+		// Toon: quantize diffuse from light 3 (main scene light)
 		"vec3 L3 = normalize(lightPos3 - v_frag_coord);\n"
 		"float diff3 = max(dot(N, L3), 0.0);\n"
 		// Quantize into 4 steps
 		"float toon = floor(diff3 * 4.0) / 4.0;\n"
-		// Bioluminescent lights still smooth for atmosphere
+		// Bioluminescent lights smooth for atmosphere
 		"vec3 L1 = normalize(lightPos - v_frag_coord);\n"
 		"float diff1 = max(dot(N, L1), 0.0);\n"
 		"float dist1 = length(lightPos - v_frag_coord);\n"
@@ -211,7 +211,7 @@ int main(int argc, char* argv[])
 		// Toon shaded main light
 		"vec3 toonLight = toon * vec3(0.9, 1.1, 1.3) * baseColor;\n"
 		"vec3 lit = ambient + toonLight + bio1 + bio2;\n"
-		// Depth fog - Beer Lambert
+		// Depth fog (Beer Lambert)
 		"float dist = length(u_view_pos - v_frag_coord);\n"
 		"float fogDensity = 0.05;\n"
 		"float fogFactor = exp(-fogDensity * dist);\n"
@@ -269,22 +269,18 @@ Shader reflectShader(sourceVReflect, sourceFReflect);
 		"in vec3 position; \n"
 		"in vec2 tex_coords; \n"
 		"in vec3 normal; \n"
-		
-		//only P and V are necessary
+		// Only P and V are necessary
 		"uniform mat4 V; \n"
 		"uniform mat4 P; \n"
-
 		"out vec3 texCoord_v; \n"
-
 		" void main(){ \n"
 		"texCoord_v = position;\n"
-		//remove translation info from view matrix to only keep rotation
+		// Remove translation info from view matrix to only keep rotation
 		"mat4 V_no_rot = mat4(mat3(V)) ;\n"
 		"vec4 pos = P * V_no_rot * vec4(position, 1.0); \n"
-		// the positions xyz are divided by w after the vertex shader
-		// the z component is equal to the depth value
-		// we want a z always equal to 1.0 here, so we set z = w!
-		// Remember: z=1.0 is the MAXIMUM depth value ;)
+		// Positions xyz are divided by w after the vertex shader
+		// z component is equal to the depth value
+		// z always equal to 1.0 here, so we set z = w!
 		"gl_Position = pos.xyww;\n"
 		"\n" 
 		"}\n";
@@ -386,7 +382,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		float size;
 		float phase;
 	};
-
+	// Bubbles speed, size, and phase and quantity
 	std::vector<Bubble> bubbles;
 	for (int i = 0; i < 80; i++) {
 		Bubble b;
@@ -400,7 +396,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		b.phase = (rand() % 100) * 0.1f;
 		bubbles.push_back(b);
 	}
-
+	// Instance for chinchous
 	const int NUM_CHINCHOU = 25;
 		glm::vec3 chinchouOffsets[NUM_CHINCHOU];
 		for (int i = 0; i < NUM_CHINCHOU; i++) {
@@ -411,7 +407,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 			);
 		}
 
-		// Blue Orbs
+	// Blue Orbs
 	const int NUM_ORBS = 5;
 		glm::vec3 orbPositions[NUM_ORBS] = {
 			glm::vec3(-7.0f, -1.2f, -14.0f),   // left reef — slightly adjusted
@@ -526,6 +522,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 	glBindVertexArray(0);
 
+	// Pokemons loading
 	char path[] = PATH_TO_OBJECTS "/Kyogre/scene.gltf";
 	Model sphere1(path);
 	sphere1.makeObject(reflectShader);
@@ -560,7 +557,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 	glm::mat4 floorInverse = glm::transpose(glm::inverse(floorModel));
 
 
-	// Corales
+	// Corals
 	char pathCoral[] = PATH_TO_OBJECTS "/coral/scene.gltf";
 	Model coral(pathCoral);
 	coral.makeObject(shader);
@@ -593,25 +590,25 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 	model = glm::scale(model, glm::vec3(0.01, 0.01, 0.01));
 	glm::mat4 inverseModel = glm::transpose( glm::inverse(model));
 
-	// Milotic — right side, mid distance
+	// Milotic 
 	glm::mat4 modelMilotic = glm::mat4(1.0);
 	modelMilotic = glm::rotate(modelMilotic, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
 	modelMilotic = glm::scale(modelMilotic, glm::vec3(0.75, 0.75, 0.75));
 
-	// Wailord — far back, high up
+	// Wailord 
 	glm::mat4 modelWailord = glm::mat4(1.0);
 	modelWailord = glm::scale(modelWailord, glm::vec3(0.015, 0.015, 0.015));
 
-	// Relicanth — right side near floor
+	// Relicanth (near floor)
 	glm::mat4 modelRelicanth = glm::mat4(1.0);
 	modelRelicanth = glm::rotate(modelRelicanth, glm::radians(225.0f), glm::vec3(0.0, 1.0, 1.0));
 	modelRelicanth = glm::scale(modelRelicanth, glm::vec3(0.008, 0.008, 0.008));
 
-	// Lumineon — left side
+	// Lumineon 
 	glm::mat4 modelLumineon = glm::mat4(1.0);
 	modelLumineon = glm::scale(modelLumineon, glm::vec3(1.0, 1.0, 1.0));
 
-	// Chinchou — front center near floor
+	// Chinchou 
 	glm::mat4 modelChinchou = glm::mat4(1.0);
 	modelChinchou = glm::scale(modelChinchou, glm::vec3(0.75, 0.75, 0.75));
 	glm::mat4 view = camera.GetViewMatrix();
@@ -643,30 +640,28 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
 
-	// texture parameters
+	// Texture parameters
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	//stbi_set_flip_vertically_on_load(true);
-
-	// Fill cubemap with dark ocean color programmatically
+	// Cubemap with dark ocean color programmatically
 	unsigned char facePixels[4*4*3];
 	for (int i = 0; i < 6; i++) {
 		for (int y = 0; y < 4; y++) {
 			for (int x = 0; x < 4; x++) {
 				int idx = (y*4+x)*3;
-				if (i == 2) { // top face — bright caustic light from surface
+				if (i == 2) { // Top (bright caustic light from surface)
 					facePixels[idx+0] = 20 + x*10;
 					facePixels[idx+1] = 80 + y*10;
 					facePixels[idx+2] = 120 + x*8;
-				} else if (i == 3) { // bottom face — dark abyss
+				} else if (i == 3) { // Bottom (dark abyss)
 					facePixels[idx+0] = 0;
 					facePixels[idx+1] = 5;
 					facePixels[idx+2] = 15;
-				} else { // sides — mid ocean blue with variation
+				} else { // Sides (mid ocean blue with variation)
 					facePixels[idx+0] = 0 + x*3;
 					facePixels[idx+1] = 20 + y*5;
 					facePixels[idx+2] = 60 + x*8;
@@ -753,7 +748,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 				animatedModel = glm::rotate(animatedModel, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 				animatedModel = glm::scale(animatedModel, glm::vec3(scale * pulse));
 			} else {
-				// Starts swimming majestically
+				// Starts swimming 
 				float swimT = t - 5.0f;
 				float swimX = 5.0f * std::sin(swimT * 0.2f);
 				float swimZ = 15.0f - swimT * 0.5f;
@@ -764,7 +759,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 				animatedModel = glm::scale(animatedModel, glm::vec3(0.035f));
 			}
 		} else {
-			// Dormant statue — still, behind player at spawn
+			// Dormant statue behind the player
 			animatedModel = glm::translate(animatedModel, glm::vec3(0.0f, 2.0f, 15.0f));
 			animatedModel = glm::rotate(animatedModel, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 			animatedModel = glm::rotate(animatedModel, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -778,8 +773,6 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		shader.setMatrix4("P", perspective);
 		shader.setVector3f("u_view_pos", camera.Position);
 
-		
-		auto delta = light_pos + glm::vec3(0.0,0.0,2 * std::sin(now));
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
@@ -809,7 +802,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		shader.setVector3f("u_view_pos", camera.Position);
 
 
-		// Milotic — figure-8 right side
+		// Milotic movement
 		float mX = 5.0f + 2.0f * std::sin(now * 0.3f);
 		float mZ = -8.0f + 3.0f * std::sin(now * 0.15f);
 		for (int ci = 0; ci < 35; ci++) {
@@ -837,7 +830,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		else { shader.setInteger("useTexture", 0); shader.setVector3f("objectColor", glm::vec3(0.8, 0.5, 0.7)); }
 		milotic.draw();
 
-		// Wailord 1 — slow drift far back
+		// Wailord 1 movement
 		float wX = -8.0f + 4.0f * std::sin(now * 0.08f);
 		float wZ = -18.0f + 2.0f * std::cos(now * 0.08f);
 		for (int ci = 0; ci < 35; ci++) {
@@ -863,7 +856,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		else { shader.setInteger("useTexture", 0); shader.setVector3f("objectColor", glm::vec3(0.3, 0.4, 0.8)); }
 		wailord.draw();
 
-		// Wailord 2 — drifts right side high up
+		// Wailord 2 movement
 		float w2X = 12.0f + 3.0f * std::sin(now * 0.06f);
 		float w2Z = -32.0f + 2.0f * std::cos(now * 0.07f);
 		for (int ci = 0; ci < 35; ci++) {
@@ -889,7 +882,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		else { shader.setInteger("useTexture", 0); shader.setVector3f("objectColor", glm::vec3(0.3, 0.4, 0.8)); }
 		wailord.draw();
 
-		// Relicanth — patrols near floor right
+		// Relicanth movement near sea floor
 		float rX = 4.0f + 2.5f * std::sin(now * 0.2f);
 		float rZ = -7.0f + 2.0f * std::cos(now * 0.2f);
 		glm::mat4 animRelicanth = glm::mat4(1.0f);
@@ -902,7 +895,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		else { shader.setInteger("useTexture", 0); shader.setVector3f("objectColor", glm::vec3(0.4, 0.5, 0.3)); }
 		relicanth.draw();
 
-		// Relicanth 2 — patrols left side
+		// Relicanth 2 movement near sea floor
 		float r2X = -4.0f + 2.0f * std::sin(now * 0.15f);
 		float r2Z = -10.0f + 2.5f * std::cos(now * 0.15f);
 		glm::mat4 animRelicanth2 = glm::mat4(1.0f);
@@ -915,7 +908,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		else { shader.setInteger("useTexture", 0); shader.setVector3f("objectColor", glm::vec3(0.4, 0.5, 0.3)); }
 		relicanth.draw();
 
-		// Lumineon — guides player toward nearest uncollected orb
+		// Lumineon guides player toward nearest uncollected orb
 		float closestDist = 9999.0f;
 		glm::vec3 closestOrb = camera.Position;
 		for (int i = 0; i < NUM_ORBS; i++) {
@@ -940,7 +933,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		else { shader.setInteger("useTexture", 0); shader.setVector3f("objectColor", glm::vec3(0.2, 0.7, 0.9)); }
 		lumineon.draw();
 
-		// Chinchou school — instanced
+		// Chinchou school instanced
 		float cX = 2.0f + 2.0f * std::sin(now * 0.5f);
 		float cZ = -8.0f + 2.0f * std::cos(now * 0.5f);
 		for (int ci = 0; ci < 35; ci++) {
@@ -975,7 +968,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 			chinchou.draw();
 		}
 
-		// Chinchou school 2 — left side deeper
+		// Chinchou school 2 
 		float c2X = -4.0f + 2.0f * std::sin(now * 0.4f);
 		float c2Z = -12.0f + 2.0f * std::cos(now * 0.4f);
 		for (int ci = 0; ci < 35; ci++) {
@@ -1158,7 +1151,7 @@ Shader orbShader(sourceVOrb, sourceFOrb);
 		glfwSwapBuffers(window);
 	}
 
-	//clean up ressource
+	// Clean up ressource
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
@@ -1173,7 +1166,6 @@ void loadCubemapFace(const char * path, const GLenum& targetFace)
 	{
 
 		glTexImage2D(targetFace, 0, GL_RGB, imWidth, imHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		//glGenerateMipmap(targetFace);
 	}
 	else {
 		std::cout << "Failed to Load texture" << std::endl;
@@ -1185,7 +1177,7 @@ void loadCubemapFace(const char * path, const GLenum& targetFace)
 
 
 void processInput(GLFWwindow* window) {
-	//3. Use the cameras class to change the parameters of the camera
+	// Use the cameras class to change the parameters of the camera
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
