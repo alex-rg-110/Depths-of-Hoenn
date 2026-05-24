@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/alejandrorodriguezgarcia/Desktop/UGent/3D graphics in VR/depths_of_Hoenn/build/cmake_install.cmake",
+		"/Users/alejandrorodriguezgarcia/Desktop/UGent/3D graphics in VR/depths_of_Hoenn/build/3rdParty/glfw/cmake_install.cmake",
+		"/Users/alejandrorodriguezgarcia/Desktop/UGent/3D graphics in VR/depths_of_Hoenn/build/3rdParty/glfw/src/cmake_install.cmake",
+		"/Users/alejandrorodriguezgarcia/Desktop/UGent/3D graphics in VR/depths_of_Hoenn/build/3rdParty/assimp/cmake_install.cmake",
+		"/Users/alejandrorodriguezgarcia/Desktop/UGent/3D graphics in VR/depths_of_Hoenn/build/3rdParty/assimp/code/cmake_install.cmake",
+		"/Users/alejandrorodriguezgarcia/Desktop/UGent/3D graphics in VR/depths_of_Hoenn/build/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

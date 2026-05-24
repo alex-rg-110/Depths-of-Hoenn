@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lumineon
+* source:	https://sketchfab.com/3d-models/lumineon-32f9ee4b15104c1a8d14c99607d86c2a
+* author:	nguyenlouis32 (https://sketchfab.com/nguyenlouis32)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lumineon" (https://sketchfab.com/3d-models/lumineon-32f9ee4b15104c1a8d14c99607d86c2a) by nguyenlouis32 (https://sketchfab.com/nguyenlouis32) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

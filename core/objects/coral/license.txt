@@ -1,0 +1,11 @@
+Model Information:
+* title:	Coral Piece
+* source:	https://sketchfab.com/3d-models/coral-piece-bd879158d2c9496fa40eb9a8fd8e75f8
+* author:	Sharon Kunne (https://sketchfab.com/sharonkunne)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Coral Piece" (https://sketchfab.com/3d-models/coral-piece-bd879158d2c9496fa40eb9a8fd8e75f8) by Sharon Kunne (https://sketchfab.com/sharonkunne) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

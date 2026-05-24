@@ -1,0 +1,9 @@
+libdir=/usr/local/lib
+includedir=/usr/local/include
+
+Name: depths_of_hoenn
+Description: Import various well-known 3D model formats in an uniform manner.
+Version: 6.0.5
+Libs: -L${libdir} -lassimp
+Libs.private:  -loptimized;/Users/alejandrorodriguezgarcia/fsl/lib/libz.a;debug;/Users/alejandrorodriguezgarcia/fsl/lib/libz.a
+Cflags: -I${includedir}

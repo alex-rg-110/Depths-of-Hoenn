@@ -1,0 +1,2 @@
+/Users/alejandrorodriguezgarcia/fsl/bin/arm64-apple-darwin20.0.0-ar qc libglad.a CMakeFiles/glad.dir/3rdParty/glad/src/glad.c.o
+/Users/alejandrorodriguezgarcia/fsl/bin/llvm-ranlib libglad.a
