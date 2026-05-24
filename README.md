@@ -3,13 +3,14 @@
 An interactive underwater 3D scene built with C++ and OpenGL 4.0.  
 Explore a bioluminescent coral reef, collect 5 Blue Orbs, and awaken the legendary Kyogre.
 
-## Dependencies
-
-- **CMake** 3.10+
-- **GLFW**: 3.x window creation and input
-- **GLAD**: OpenGL function loader
-- **GLM**: mathematics library
-- **STB Image**: texture loading (header-only, included in project)
+## Dependancies
+* **CMake** 3.10+
+* **GLFW**: 3.x window creation and input
+* **GLAD**: OpenGL function loader
+* **GLM**: Mathematics library
+* **Assimp**: Asset Import Library (required to load .gltf and .obj models)
+* **ZLIB**: Compression library (required by CMake setup)
+* **STB Image**: Texture loading (header-only, included in project)
 
 ## Build Instructions
 
