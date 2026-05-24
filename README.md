@@ -67,6 +67,9 @@ From inside the `build` directory:
 
 ## Objective
 
-Collect all 5 Blue Orbs hidden in the coral reef.  
-Follow Lumineon — it always swims toward the nearest orb.  
-Once all orbs are collected, Kyogre awakens.
+## Objective
+
+You are a diver exploring the depths of Hoenn and somewhere in the coral reef, 5 Blue Orbs lie hidden.
+Ancient relics needed to awaken the Sea God Kyogre, who rests dormant behind you as a silent statue.
+
+Follow Lumineon, the glowing guide fish as it swims toward the nearest uncollected orb. Once all 5 are found, Kyogre awakens.
