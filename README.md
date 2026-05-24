@@ -6,10 +6,10 @@ Explore a bioluminescent coral reef, collect 5 Blue Orbs, and awaken the legenda
 ## Dependencies
 
 - **CMake** 3.10+
-- **GLFW** 3.x — window creation and input
-- **GLAD** — OpenGL function loader
-- **GLM** — mathematics library
-- **STB Image** — texture loading (header-only, included in project)
+- **GLFW**: 3.x window creation and input
+- **GLAD**: OpenGL function loader
+- **GLM**: mathematics library
+- **STB Image**: texture loading (header-only, included in project)
 
 ## Build Instructions
 
@@ -65,7 +65,7 @@ From inside the `build` directory:
 | R | Restart after winning |
 | ESC | Quit |
 
-## Objective
+
 
 ## Objective
 
